@@ -5,7 +5,7 @@ export default function () {
             <nav id="sidebar" className="sidebar">
                 <div className="sidebar-content js-simplebar">
                     <a className="sidebar-brand" href="dashboard-ecommerce.html">
-                        <img src="assets/img/logo.png" height="auto" width="130" alt="Revo Interactive" />
+                        <img src="./assets/img/logo.png" height="auto" width="130" alt="Revo Interactive" />
                     </a>
                     <ul className="sidebar-nav">
 
