@@ -1,110 +1,74 @@
 import Layout from "../Layout";
+import memberStyle from "./style/style.module.css";
 
 export default function Create() {
 
     return (
         <Layout>
             <>
-                <h1 className="h3 mb-3">Basic Inputs</h1>
+                <h1 className="h3 mb-3">Member Create</h1>
                 <div className="row">
                     <div className="col-12 col-lg-6">
                         <div className="card card-custom mb-3">
-                            <form className="form-custom">
+                            <form className={memberStyle.formCustom}>
                                 <div className="mb-3">
-                                    <label for="exampleInputEmail1" className="form-label">Email address</label>
-                                    <input type="email" className="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" />
+                                    <label htmlFor="name" className="form-label">Name:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control form-control-lg"
+                                        id="name" name="name"
+                                        aria-describedby="nameHelp"
+                                        placeholder="Enter Name"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">Email:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control form-control-lg"
+                                        id="email" name="email"
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter Email"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="phone" className="form-label">Phone:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control form-control-lg"
+                                        id="phone" name="phone"
+                                        aria-describedby="phoneHelp"
+                                        placeholder="Enter Phone"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="form-label">Password:</label>
+                                    <input type="text"
+                                        className="form-control form-control-lg"
+                                        id="password" name="password"
+                                        aria-describedby="passwordHelp"
+                                        placeholder="Enter Password"
+                                    />
+                                </div>
+                                <div className="mb-3 mt-3 d-flex justify-content-between">
+                                    <a href="" className="btn btn-danger btn-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-square align-middle"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                                        </svg>
+                                        <span class="align-middle px-2">Cancel</span>
+                                    </a>
+                                    <button className="btn btn-primary btn-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save align-middle">
+                                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                            <polyline points="7 3 7 8 15 8"></polyline>
+                                        </svg>
+                                        <span class="align-middle px-2">Save Changes</span>
+                                    </button>
                                 </div>
                             </form>
 
-                        </div>
-                        <div className="card card-custom mb-3">
-                            <form className="form-custom">
-                                <div className="mb-3">
-                                    <label for="exampleFormControlTextarea1" className="form-label">Example
-                                        textarea</label>
-                                    <textarea className="form-control" id="exampleFormControlTextarea1"
-                                        rows="3"></textarea>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div className="card card-custom mb-3">
-                            <div className="card-header">
-                                <h5 className="">Checkboxes</h5>
-                            </div>
-                            <div className="card-body p-0">
-                                <form className="form-custom">
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value=""
-                                            id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
-                                            Option one is this and that&mdash;be sure to include why it's great
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value=""
-                                            id="flexCheckChecked" disabled />
-                                        <label className="form-check-label" for="flexCheckChecked">
-                                            Option two is disabled
-                                        </label>
-                                    </div>
-
-                                    <div className="form-check form-check-inline ">
-                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                            value="option1" />
-                                        <label className="form-check-label" for="inlineCheckbox1">1</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                            value="option2" />
-                                        <label className="form-check-label" for="inlineCheckbox2">2</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox3"
-                                            value="option3" disabled />
-                                        <label className="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div className="card card-custom mb-3">
-                            <div className="card-header">
-                                <h5 className="card-title mb-0">Custom selects</h5>
-                            </div>
-                            <div className="card-body">
-                                <select className="form-select mb-3" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-
-                                <select className="form-select" aria-label="Disabled select example" disabled>
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-
-                            </div>
-                        </div>
-
-                        <div className="card card-custom">
-                            <div className="card-header">
-                                <h5 className="card-title mb-0">Sizes</h5>
-                            </div>
-                            <div className="card-body">
-                                <input className="form-control form-control-lg mb-3" type="text"
-                                    placeholder=".form-control-lg" aria-label=".form-control-lg example" />
-                                <input className="form-control mb-3" type="text" placeholder="Default input"
-                                    aria-label="default input example" />
-                                <input className="form-control mb-3 form-control-sm" type="text"
-                                    placeholder=".form-control-sm" aria-label=".form-control-sm example" />
-                                <input className="form-control mb-3" type="text" placeholder="Disabled input"
-                                    aria-label="Disabled input example" disabled />
-                            </div>
                         </div>
                     </div>
                 </div>
