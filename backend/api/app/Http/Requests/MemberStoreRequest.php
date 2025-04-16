@@ -25,8 +25,8 @@ class MemberStoreRequest extends FormRequest
         $rules = [];
 
         $rules['name'] = ['required', 'string', 'min:3', 'max:255'];
-        $rules['email'] = ['required', 'string', 'email'];
-        $rules['phone'] = ['required', 'string'];
+        $rules['email'] = ['required', 'string', 'unique:users,email'];
+        $rules['phone'] = ['required', 'string', 'unique:users,phone'];
         $rules['password'] = ['required', 'min:6', 'max:8'];
 
         return $rules;
