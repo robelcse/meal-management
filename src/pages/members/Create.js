@@ -4,6 +4,7 @@ import memberStyle from "./style/style.module.css";
 
 import api from "../../api";
 import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 export default function Create() {
 
@@ -16,6 +17,8 @@ export default function Create() {
         password: ""
     });
 
+    const [errors, setErrors] = useState({});
+
     const handleUserData = (event) => {
 
         const { name, value } = event.target;
@@ -25,6 +28,10 @@ export default function Create() {
             ...prevUserData,
             [name]: value
         }));
+
+
+        // Clear individual field error on change
+        setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
 
     }
 
@@ -36,19 +43,27 @@ export default function Create() {
 
             const apiResponse = await api.post('members', userData).then(response => response.data);
 
-            if (apiResponse.success) {
+            if (apiResponse.success == true) {
+
+                toast.success(apiResponse.message);
+
                 setUserData({
                     name: "",
                     email: "",
                     phone: "",
                     password: ""
                 });
+            } else if (apiResponse.success == false) {
+                setErrors(apiResponse.errors);
             }
 
-            console.log(apiResponse);
-
         } catch (error) {
-            console.log(error);
+            if (error.status == 403) {
+                console.log();
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Something went wrong!");
+            }
         }
     }
 
@@ -86,6 +101,7 @@ export default function Create() {
                                         aria-describedby="nameHelp"
                                         placeholder="Enter Name"
                                     />
+                                    {errors.name && <div style={{ color: 'red' }}>{errors.name[0]}</div>}
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">Email:</label>
@@ -98,6 +114,7 @@ export default function Create() {
                                         aria-describedby="emailHelp"
                                         placeholder="Enter Email"
                                     />
+                                    {errors.email && <div style={{ color: 'red' }}>{errors.email[0]}</div>}
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="phone" className="form-label">Phone:</label>
@@ -110,6 +127,7 @@ export default function Create() {
                                         aria-describedby="phoneHelp"
                                         placeholder="Enter Phone"
                                     />
+                                    {errors.phone && <div style={{ color: 'red' }}>{errors.phone[0]}</div>}
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="password" className="form-label">Password:</label>
@@ -121,6 +139,7 @@ export default function Create() {
                                         aria-describedby="passwordHelp"
                                         placeholder="Enter Password"
                                     />
+                                    {errors.password && <div style={{ color: 'red' }}>{errors.password[0]}</div>}
                                 </div>
                                 <div className="mb-3 mt-3 d-flex justify-content-between">
                                     <a href="" className="btn btn-danger btn-lg">
