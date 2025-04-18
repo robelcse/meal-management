@@ -49,7 +49,7 @@ class MemberController extends Controller
             'success' => true,
             'data' => $member,
             'status_code' => 200,
-            'message' => 'Member Created'
+            'message' => 'Member has been created successfully.'
         ]);
     }
 
