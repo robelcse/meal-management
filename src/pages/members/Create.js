@@ -5,9 +5,12 @@ import memberStyle from "./style/style.module.css";
 import api from "../../api";
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 export default function Create() {
 
+
+    const navigate = useNavigate();
 
 
     const [userData, setUserData] = useState({
@@ -53,6 +56,9 @@ export default function Create() {
                     phone: "",
                     password: ""
                 });
+
+                navigate('/members');
+
             } else if (apiResponse.success == false) {
                 setErrors(apiResponse.errors);
             }
