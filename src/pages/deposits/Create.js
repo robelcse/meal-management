@@ -1,17 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 import Layout from "../Layout";
 import memberStyle from "./style/style.module.css";
+import api from "../../api";
 
 export default function Create() {
 
 
+    const [memberList, setMemberList] = useState([]);
     const [depositData, setDepositData] = useState({
-        name: "",
+        memberName: "",
         depositAmount: "",
         depositMonth: ""
     });
 
     const [errors, setErrors] = useState({});
+
+
+    useEffect(() => {
+        api.get("members")
+            .then(response => {
+                setMemberList(response.data.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, []);
 
     const handleDepositData = (event) => {
         const { name, value } = event.target;
@@ -25,7 +39,42 @@ export default function Create() {
 
     const handleDataSubmit = async (event) => {
         event.preventDefault();
+
+
+        try {
+
+            const apiResponse = await api.post('deposits', depositData).then(response => response.data);
+            console.log(apiResponse);
+
+            if (apiResponse.success == true) {
+
+                toast.success(apiResponse.message);
+
+                setDepositData({
+                    memberName: "",
+                    depositAmount: "",
+                    depositMonth: ""
+                });
+
+            } else if (apiResponse.success == false) {
+                setErrors(apiResponse.errors);
+            }
+
+        } catch (error) {
+            console.log(error);
+            if (error.status == 403) {
+                console.log();
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Something went wrong!");
+            }
+        }
+
+        console.log({ depositData });
     }
+
+
+
 
     return (
 
@@ -37,17 +86,15 @@ export default function Create() {
                         <div className="card card-custom mb-3">
                             <form className={memberStyle.formCustom} onSubmit={handleDataSubmit}>
                                 <div className="mb-3">
-                                    <label htmlFor="name" className="form-label">Member Name:</label>
-                                    <input
-                                        type="text"
-                                        className="form-control form-control-lg"
-                                        id="name" name="name"
-                                        value={depositData.name}
-                                        onChange={handleDepositData}
-                                        aria-describedby="nameHelp"
-                                        placeholder="Enter Name"
-                                    />
-                                    {errors.name && <div style={{ color: 'red' }}>{errors.name[0]}</div>}
+                                    <label htmlFor="memberName" className="select-label mb-2">Member Name:</label>
+                                    <select className="js-example-basic-single form-control" onChange={handleDepositData} value={depositData.memberName} id="memberName" name="memberName">
+                                        <option>----</option>
+                                        {memberList.map((member, index) => (
+
+                                            <option key={member.id} value={member.id}>{member.name}</option>
+                                        ))}
+
+                                    </select>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="depositAmount" className="form-label">Deposit Amount:</label>
@@ -99,7 +146,7 @@ export default function Create() {
                     </div>
                 </div>
             </>
-        </Layout>
+        </Layout >
 
     );
 }

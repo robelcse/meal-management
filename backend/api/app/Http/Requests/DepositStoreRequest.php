@@ -24,9 +24,9 @@ class DepositStoreRequest extends FormRequest
     {
         $rules = [];
 
-        $rules['user_id'] = ['required'];
-        $rules['deposit_amount'] = ['required'];
-        $rules['deposit_month'] = ['required'];
+        $rules['memberName'] = ['required'];
+        $rules['depositAmount'] = ['required'];
+        $rules['depositMonth'] = ['required'];
 
         return $rules;
     }

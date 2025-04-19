@@ -38,7 +38,11 @@ class DepositController extends Controller
      */
     public function store(DepositStoreRequest $request)
     {
-        $deposit =  Deposit::create($request->all());
+        $deposit =  Deposit::create([
+            'user_id' => $request->memberName,
+            'deposit_amount' => $request->depositAmount,
+            'deposit_month' => $request->depositMonth . "-01"
+        ]);
 
         return Response::json([
             'success' => true,
