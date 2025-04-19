@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('home', [App\Http\Controllers\Api\HomeController::class, 'home']);
 Route::resource('members', App\Http\Controllers\Api\MemberController::class);
+Route::resource('deposits', App\Http\Controllers\Api\DepositController::class);

@@ -3,25 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MemberStoreRequest;
-use App\Models\User;
+use App\Http\Requests\DepositStoreRequest;
+use App\Models\Deposit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class MemberController extends Controller
+class DepositController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $memberList = User::orderByDesc('id')->get();
+        $depositList = Deposit::orderByDesc('id')->get();
 
         return Response::json([
             'success'     => true,
-            'data'        => $memberList,
+            'data'        => $depositList,
             'status_code' => 200,
-            'message'     => 'Member List'
+            'message'     => 'Deposit List'
         ]);
     }
 
@@ -36,16 +36,15 @@ class MemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MemberStoreRequest $request)
+    public function store(DepositStoreRequest $request)
     {
-
-        $member =  User::create($request->all());
+        $deposit =  Deposit::create($request->all());
 
         return Response::json([
             'success' => true,
-            'data' => $member,
+            'data' => $deposit,
             'status_code' => 200,
-            'message' => 'Member has been created successfully.'
+            'message' => 'Deposit has been created successfully.'
         ]);
     }
 
