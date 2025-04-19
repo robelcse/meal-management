@@ -9,6 +9,8 @@ import MemberList from './pages/members/List';
 import MemberCreate from './pages/members/Create';
 import DepositCreate from './pages/deposits/Create';
 import DepositList from './pages/deposits/List';
+import CostCreate from './pages/costs/Create';
+import CostList from './pages/costs/List';
 
 import './App.css';
 
@@ -24,6 +26,8 @@ function App() {
           <Route path="members/create" element={<MemberCreate />} />
           <Route path="/deposits" element={<DepositList />} />
           <Route path="deposits/create" element={<DepositCreate />} />
+          <Route path="/costs" element={<CostList />} />
+          <Route path="costs/create" element={<CostCreate />} />
         </Routes>
       </Router>
       <ToastContainer />
