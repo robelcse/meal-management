@@ -13,25 +13,21 @@ export default function Create() {
         user: "",
         dateOfCost: "",
         totalCost: "",
-        itemList: [{ itemDescription: "", itemPrice: "" }, { itemDescription: "", itemPrice: "" }]
+        itemList: [{ itemDescription: "", itemPrice: "" }]
 
     });
     const [errors, setErrors] = useState({});
 
-    const [itemList, setItemList] = useState([{ itemDescription: "", itemPrice: "" }]);
-
-
     const addNewItem = () => {
-        //setItemList([...itemList, { ItemDescription: 'ItemDescription:', ItemPrice: 'ItemPrice:' }]);
 
-        const newItemList = [...costData.itemList];
-        newItemList[2] = "";
-
-        console.log({ costData });
+        setCostData(prevState => ({
+            ...prevState,
+            itemList: [
+                ...prevState.itemList,
+                { itemDescription: "", itemPrice: "" }
+            ]
+        }));
     }
-
-
-
 
     useEffect(() => {
         api.get("members")
@@ -43,18 +39,31 @@ export default function Create() {
             });
     }, []);
 
-    const handlCostData = (event) => {
-
-
-        console.log(event.target);
+    const handlCostData = (event, index = null, field = null) => {
 
         const { name, value } = event.target;
 
-        setCostData((prevCostData) => ({
+        if (index != null && field) {
+            // Handling itemList update
 
-            ...prevCostData,
-            [name]: value
-        }));
+            const updatedItemList = [...costData.itemList];
+            updatedItemList[index][field] = value;
+
+            setCostData(prevState => ({
+
+                ...prevState,
+                itemList: updatedItemList
+            }));
+
+        } else {
+            // Handling top-level fields like user, dateOfCost, totalCost
+            setCostData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+
+
     }
 
     const handleDataSubmit = async (event) => {
@@ -62,21 +71,8 @@ export default function Create() {
 
 
         console.log({ costData });
-        console.log({ itemList });
 
     }
-
-
-    const handleInputChange = (index, event) => {
-
-
-        const { name, value } = event.target;
-        const newItemList = [...itemList];
-        newItemList[index][name] = value;
-        setItemList(newItemList);
-
-    };
-
 
     return (
 
@@ -100,9 +96,9 @@ export default function Create() {
                                                         type="text"
                                                         className="form-control form-control-lg"
                                                         name="itemDescription"
-                                                        placeholder="Enter Item Description"
                                                         value={singleItem.itemDescription}
-                                                        onChange={(e) => handleInputChange(index, e)}
+                                                        onChange={(e) => handlCostData(e, index, "itemDescription")}
+                                                        placeholder="Enter Item Description"
                                                     />
                                                 </div>
                                             </div>
@@ -113,9 +109,9 @@ export default function Create() {
                                                         type="number"
                                                         className="form-control form-control-lg"
                                                         name="itemPrice"
-                                                        placeholder="Enter Item Price"
                                                         value={singleItem.itemPrice}
-                                                        onChange={(e) => handleInputChange(index, e)}
+                                                        onChange={(e) => handlCostData(e, index, "itemPrice")}
+                                                        placeholder="Enter Item Price"
                                                     />
                                                 </div>
                                             </div>
