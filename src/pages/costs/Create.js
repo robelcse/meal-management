@@ -10,21 +10,27 @@ export default function Create() {
 
     const [memberList, setMemberList] = useState([]);
     const [costData, setCostData] = useState({
-
         user: "",
         dateOfCost: "",
         totalCost: "",
+        itemList: [{ itemDescription: "", itemPrice: "" }, { itemDescription: "", itemPrice: "" }]
 
     });
+    const [errors, setErrors] = useState({});
 
-    const [itemList, setItemList] = useState([{ itemLabel1: 'Item Description:', itemLabel2: 'Item Price:' }]);
+    const [itemList, setItemList] = useState([{ itemDescription: "", itemPrice: "" }]);
 
 
     const addNewItem = () => {
-        setItemList([...itemList, { itemLabel1: 'Item Description:', itemLabel2: 'Item Price:' }]);
+        //setItemList([...itemList, { ItemDescription: 'ItemDescription:', ItemPrice: 'ItemPrice:' }]);
+
+        const newItemList = [...costData.itemList];
+        newItemList[2] = "";
+
+        console.log({ costData });
     }
 
-    const [errors, setErrors] = useState({});
+
 
 
     useEffect(() => {
@@ -38,6 +44,10 @@ export default function Create() {
     }, []);
 
     const handlCostData = (event) => {
+
+
+        console.log(event.target);
+
         const { name, value } = event.target;
 
         setCostData((prevCostData) => ({
@@ -52,8 +62,20 @@ export default function Create() {
 
 
         console.log({ costData });
+        console.log({ itemList });
 
     }
+
+
+    const handleInputChange = (index, event) => {
+
+
+        const { name, value } = event.target;
+        const newItemList = [...itemList];
+        newItemList[index][name] = value;
+        setItemList(newItemList);
+
+    };
 
 
     return (
@@ -68,37 +90,33 @@ export default function Create() {
 
 
                                 {
-                                    itemList.map((singleItem, index) => (
+                                    costData.itemList.map((singleItem, index) => (
 
                                         <div className="row" key={index}>
                                             <div className="col-md-8">
                                                 <div className="mb-3">
-                                                    <label htmlFor="depositAmount" className="form-label">{singleItem.itemLabel1}</label>
+                                                    <label className="form-label">Item Description</label>
                                                     <input
                                                         type="text"
                                                         className="form-control form-control-lg"
-                                                        id="depositAmount" name="depositAmount"
-                                                        // value={costData.depositAmount}
-                                                        // onChange={handlCostData}
-                                                        aria-describedby="depostAmountHelp"
+                                                        name="itemDescription"
                                                         placeholder="Enter Item Description"
+                                                        value={singleItem.itemDescription}
+                                                        onChange={(e) => handleInputChange(index, e)}
                                                     />
-                                                    {errors.depositAmount && <div style={{ color: 'red' }}>{errors.depositAmount[0]}</div>}
                                                 </div>
                                             </div>
                                             <div className="col-md-4">
                                                 <div className="mb-3">
-                                                    <label htmlFor="depositAmount" className="form-label">{singleItem.itemLabel2}</label>
+                                                    <label className="form-label">Item Price</label>
                                                     <input
                                                         type="number"
                                                         className="form-control form-control-lg"
-                                                        id="depositAmount" name="depositAmount"
-                                                        // value={costData.depositAmount}
-                                                        // onChange={handlCostData}
-                                                        aria-describedby="depostAmountHelp"
+                                                        name="itemPrice"
                                                         placeholder="Enter Item Price"
+                                                        value={singleItem.itemPrice}
+                                                        onChange={(e) => handleInputChange(index, e)}
                                                     />
-                                                    {errors.depositAmount && <div style={{ color: 'red' }}>{errors.depositAmount[0]}</div>}
                                                 </div>
                                             </div>
                                         </div>
@@ -106,7 +124,7 @@ export default function Create() {
                                 }
 
                                 <div className="d-flex justify-content-start">
-                                    <button className="btn btn-secondary" onClick={addNewItem}>Add More Item</button>
+                                    <button type="button" className="btn btn-secondary" onClick={addNewItem}>Add More Item</button>
                                 </div>
 
 
