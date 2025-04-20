@@ -12,7 +12,7 @@ export default function Create() {
     const [costData, setCostData] = useState({
         user: "",
         dateOfCost: "",
-        totalCost: "",
+        totalCost: 0,
         itemList: [{ itemDescription: "", itemPrice: "" }]
 
     });
@@ -42,6 +42,7 @@ export default function Create() {
     const handlCostData = (event, index = null, field = null) => {
 
         const { name, value } = event.target;
+        let totalPrice = 0;
 
         if (index != null && field) {
             // Handling itemList update
@@ -49,9 +50,15 @@ export default function Create() {
             const updatedItemList = [...costData.itemList];
             updatedItemList[index][field] = value;
 
+
+            if (field == 'itemPrice') {
+                totalPrice = calculateTotalPrice(updatedItemList);
+            }
+
             setCostData(prevState => ({
 
                 ...prevState,
+                totalCost: totalPrice,
                 itemList: updatedItemList
             }));
 
@@ -64,6 +71,19 @@ export default function Create() {
         }
 
 
+    }
+
+    const calculateTotalPrice = (updatedItemList) => {
+
+        let totalPrice = 0;
+
+        updatedItemList.map(singleItem => {
+            (
+                totalPrice += singleItem.itemPrice != '' ? parseInt(singleItem.itemPrice) : 0
+            )
+        });
+
+        return totalPrice;
     }
 
     const handleDataSubmit = async (event) => {
@@ -161,6 +181,7 @@ export default function Create() {
                                         value={costData.totalCost}
                                         onChange={handlCostData}
                                         placeholder="Enter Deposit Amount"
+                                        readOnly
 
                                     />
                                 </div>
