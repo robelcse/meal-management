@@ -90,6 +90,37 @@ export default function Create() {
         event.preventDefault();
 
 
+
+
+        try {
+
+            const apiResponse = await api.post('costs', costData).then(response => response.data);
+            console.log(apiResponse);
+
+
+            if (apiResponse.success == true) {
+
+                toast.success(apiResponse.message);
+
+                setCostData({
+                    user: "",
+                    dateOfCost: "",
+                    totalCost: 0,
+                    itemList: [{ itemDescription: "", itemPrice: "" }]
+                });
+
+            } else if (apiResponse.success == false) {
+                setErrors(apiResponse.errors);
+            }
+
+
+
+        } catch (error) {
+            console.log(error);
+
+        }
+
+
         console.log({ costData });
 
     }
