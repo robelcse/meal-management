@@ -17,9 +17,19 @@ export default function AllMemberMealCount() {
                 <div className="col-12  mb-3">
                     <div className="card card-custom">
                         <div className="card-header p-4">
-                            <h5 className="card-title">Hoverable Rows</h5>
-                            <h6 className="card-subtitle text-muted">Add <code>.table-hover</code> to enable a hover
-                                state on table rows within a <code>&lt;tbody&gt;</code>.</h6>
+                            <div className="row">
+                                <div className="col-9">
+                                    <h5 className="card-title">Hoverable Rows</h5>
+                                    <h6 className="card-subtitle text-muted">Add <code>.table-hover</code> to enable a hover
+                                        state on table rows within a <code>&lt;tbody&gt;</code>.</h6>
+                                </div>
+                                <div className="col-3">
+                                    <input
+                                        type="month"
+                                        className="form-control form-control-lg"
+                                    />
+                                </div>
+                            </div>
                         </div>
                         <div className="table-responsive">
                             <table className="table table-striped table-hover">
@@ -29,9 +39,9 @@ export default function AllMemberMealCount() {
                                         <th width="15%">Total Deposit</th>
                                         <th width="10%">Total Meal</th>
                                         <th width="10%">Total Meal Cost</th>
-                                        <th width="10%">Date</th>
-                                        <th width="18%">Count Meal</th>
-                                        <th width="7%"></th>
+                                        <th width="15%">Date</th>
+                                        <th width="20%">Count Meal</th>
+
                                         <th width="10%">Action</th>
                                     </tr>
                                 </thead>
@@ -44,40 +54,53 @@ export default function AllMemberMealCount() {
                                         <td>৳2,000.00</td>
                                         <td>50</td>
                                         <td>৳1,800.00</td>
-                                        <td>April 21, 2025</td>
+                                        <td>
+
+
+                                            <div>
+                                                <div>
+                                                    April 21, 2025
+                                                </div>
+                                                <div>
+                                                    <select className={`form-control form-control-lg ${memberStyle.border_radious_0}`}>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                        <option>6</option>
+                                                        <option>7</option>
+                                                        <option>8</option>
+                                                        <option>9</option>
+                                                        <option>10</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                        </td>
                                         <td>
                                             <div className="d-flex">
                                                 <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`}>+</button>
                                                 <div className="">
                                                     <input
                                                         type="text"
-                                                        className={`form-control form-control-lg ${memberStyle.border_radious_0}`}
+                                                        className={`form-control form-control-lg text-center ${memberStyle.border_radious_0}`}
                                                         id="name" name="name"
+                                                        value="0.00"
 
                                                     />
                                                 </div>
                                                 <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`}>-</button>
                                             </div>
                                         </td>
-                                        <td>
-                                            <select className={`form-control form-control-lg ${memberStyle.border_radious_0}`}>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                            </select>
-                                        </td>
+
 
                                         <td>
                                             <button className="btn btn-secondary">Update</button>
                                         </td>
                                     </tr>
+
 
 
                                 </tbody>
