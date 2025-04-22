@@ -13,6 +13,8 @@ import CostCreate from './pages/costs/Create';
 import CostList from './pages/costs/List';
 
 import './App.css';
+import AllMemberMealCount from './pages/meals/AllMemberMealCount';
+import SingleMemberMealCount from './pages/meals/SingleMemberMealCount';
 
 function App() {
   return (
@@ -23,11 +25,13 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/members" element={<MemberList />} />
-          <Route path="members/create" element={<MemberCreate />} />
+          <Route path="/members/create" element={<MemberCreate />} />
           <Route path="/deposits" element={<DepositList />} />
-          <Route path="deposits/create" element={<DepositCreate />} />
+          <Route path="/deposits/create" element={<DepositCreate />} />
           <Route path="/costs" element={<CostList />} />
-          <Route path="costs/create" element={<CostCreate />} />
+          <Route path="/costs/create" element={<CostCreate />} />
+          <Route path="/meals/count" element={<AllMemberMealCount />} />
+          <Route path="/members/meal/count" element={<SingleMemberMealCount />} />
         </Routes>
       </Router>
       <ToastContainer />
