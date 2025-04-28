@@ -11,6 +11,9 @@ import api from "../../api";
 export default function AllMemberMealCount() {
 
 
+    const [userList, setUserList] = useState([]);
+
+
     const [userMeal, setUserMeal] = useState([
         {
             userId: "",
@@ -65,8 +68,13 @@ export default function AllMemberMealCount() {
 
 
     useEffect(() => {
-        console.log({ userMeal });
-    }, [userMeal]);
+        api.get("meals/count").then(response => {
+            console.log(response.data.data);
+            setUserList(response.data.data);
+        }).catch(error => {
+            console.log(error);
+        });
+    }, []);
 
 
     return (
@@ -106,155 +114,83 @@ export default function AllMemberMealCount() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="../../../assets/img/avatars/avatar-5.jpg" width="48" height="48"
-                                                className="rounded-circle mr-2" alt="Avatar" /> Vanessa Tucker
-                                        </td>
-                                        <td>৳2,000.00</td>
-                                        <td>50</td>
-                                        <td>৳1,800.00</td>
-                                        <td>
-                                            <div className="d-flex justify-content-center align-items-center gap-4">
-                                                <div>
-                                                    April 21, 2025
-                                                </div>
-                                                <div>
-                                                    <select className={`form-control form-control-lg ${memberStyle.border_radious_0}`}>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                        <option value="12">12</option>
-                                                        <option value="13">13</option>
-                                                        <option value="14">14</option>
-                                                        <option value="15">15</option>
-                                                        <option value="16">16</option>
-                                                        <option value="17">17</option>
-                                                        <option value="18">18</option>
-                                                        <option value="19">19</option>
-                                                        <option value="20">20</option>
-                                                        <option value="21">21</option>
-                                                        <option value="22">22</option>
-                                                        <option value="23">23</option>
-                                                        <option value="24">24</option>
-                                                        <option value="25">25</option>
-                                                        <option value="26">26</option>
-                                                        <option value="27">27</option>
-                                                        <option value="28">28</option>
-                                                        <option value="29">29</option>
-                                                        <option value="30">30</option>
-                                                        <option value="31">31</option>
-                                                    </select>
-                                                </div>
+                                    {userList.map(user => (
+                                        <tr key={user.id}>
+                                            <td>
+                                                <img src="../../../assets/img/avatars/avatar-5.jpg" width="48" height="48"
+                                                    className="rounded-circle mr-2" alt="Avatar" />
+                                                {user.name}
+                                            </td>
+                                            <td>৳{user.deposit_sum}</td>
+                                            <td>{user.meal_sum}</td>
+                                            <td>৳{50 * user.meal_sum}</td>
+                                            <td>
+                                                <div className="d-flex justify-content-center align-items-center gap-4">
+                                                    <div>
+                                                        April 21, 2025
+                                                    </div>
+                                                    <div>
+                                                        <select className={`form-control form-control-lg ${memberStyle.border_radious_0}`}>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                            <option value="11">11</option>
+                                                            <option value="12">12</option>
+                                                            <option value="13">13</option>
+                                                            <option value="14">14</option>
+                                                            <option value="15">15</option>
+                                                            <option value="16">16</option>
+                                                            <option value="17">17</option>
+                                                            <option value="18">18</option>
+                                                            <option value="19">19</option>
+                                                            <option value="20">20</option>
+                                                            <option value="21">21</option>
+                                                            <option value="22">22</option>
+                                                            <option value="23">23</option>
+                                                            <option value="24">24</option>
+                                                            <option value="25">25</option>
+                                                            <option value="26">26</option>
+                                                            <option value="27">27</option>
+                                                            <option value="28">28</option>
+                                                            <option value="29">29</option>
+                                                            <option value="30">30</option>
+                                                            <option value="31">31</option>
+                                                        </select>
+                                                    </div>
 
-                                            </div>
-
-                                        </td>
-                                        <td>
-                                            <div className="d-flex">
-                                                <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`} onClick={() => handleIncrement(0)}>+</button>
-                                                <div className="">
-                                                    <input
-                                                        type="text"
-                                                        className={`form-control form-control-lg text-center ${memberStyle.border_radious_0}`}
-                                                        id="name" name="name"
-                                                        value={userMeal[0].totalMeal}
-                                                        onChange={(event) => handleMealChange(event, 0, 10)}
-
-                                                    />
-                                                </div>
-                                                <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`} onClick={() => handleDecrement(1)}>-</button>
-                                            </div>
-                                        </td>
-
-
-                                        <td>
-                                            <button className="btn btn-secondary">Update</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <img src="../../../assets/img/avatars/avatar-5.jpg" width="48" height="48"
-                                                className="rounded-circle mr-2" alt="Avatar" /> Vanessa Tucker
-                                        </td>
-                                        <td>৳2,000.00</td>
-                                        <td>50</td>
-                                        <td>৳1,800.00</td>
-                                        <td>
-                                            <div className="d-flex justify-content-center align-items-center gap-4">
-                                                <div>
-                                                    April 21, 2025
-                                                </div>
-                                                <div>
-                                                    <select className={`form-control form-control-lg ${memberStyle.border_radious_0}`}>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                        <option value="12">12</option>
-                                                        <option value="13">13</option>
-                                                        <option value="14">14</option>
-                                                        <option value="15">15</option>
-                                                        <option value="16">16</option>
-                                                        <option value="17">17</option>
-                                                        <option value="18">18</option>
-                                                        <option value="19">19</option>
-                                                        <option value="20">20</option>
-                                                        <option value="21">21</option>
-                                                        <option value="22">22</option>
-                                                        <option value="23">23</option>
-                                                        <option value="24">24</option>
-                                                        <option value="25">25</option>
-                                                        <option value="26">26</option>
-                                                        <option value="27">27</option>
-                                                        <option value="28">28</option>
-                                                        <option value="29">29</option>
-                                                        <option value="30">30</option>
-                                                        <option value="31">31</option>
-                                                    </select>
                                                 </div>
 
-                                            </div>
+                                            </td>
+                                            <td>
+                                                <div className="d-flex">
+                                                    <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`} onClick={() => handleIncrement(0)}>+</button>
+                                                    <div className="">
+                                                        <input
+                                                            type="text"
+                                                            className={`form-control form-control-lg text-center ${memberStyle.border_radious_0}`}
+                                                            id="name" name="name"
+                                                        // value={userMeal[0].totalMeal}
+                                                        // onChange={(event) => handleMealChange(event, 0, 10)}
 
-                                        </td>
-                                        <td>
-                                            <div className="d-flex">
-                                                <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`}>+</button>
-                                                <div className="">
-                                                    <input
-                                                        type="text"
-                                                        className={`form-control form-control-lg text-center ${memberStyle.border_radious_0}`}
-                                                        id="name" name="name"
-                                                        value={userMeal[1].totalMeal}
-                                                        onChange={(event) => handleMealChange(event, 1, 11)}
-
-                                                    />
+                                                        />
+                                                    </div>
+                                                    <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`} onClick={() => handleDecrement(1)}>-</button>
                                                 </div>
-                                                <button className={`btn btn-secondary btn-lg ${memberStyle.border_radious_0}`}>-</button>
-                                            </div>
-                                        </td>
+                                            </td>
 
 
-                                        <td>
-                                            <button className="btn btn-secondary">Update</button>
-                                        </td>
-                                    </tr>
+                                            <td>
+                                                <button className="btn btn-secondary">Update</button>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
