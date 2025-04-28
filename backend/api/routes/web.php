@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\Meal;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +22,7 @@ Route::get('/', function () {
     $userList = User::all();
     return view('welcome');
 });
+
+
+
+Route::get("meals/count", [\App\Http\Controllers\Api\MealController::class, "mealCount"]);
